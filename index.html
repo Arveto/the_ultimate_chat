@@ -8,26 +8,36 @@
   <link rel="stylesheet" href="css/index-grid.css">
   <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body class="body page-index clearfix">
+
   <div id="header" class="container container-1 clearfix">
     <p id="title" class="text text-1">ULTIMATE CHAT</p>
     <div id="login" class="container container-2 clearfix">
       <p class="text text-2">Log in</p>
     </div>
   </div>
+
   <div id="chat" class="container container-3 clearfix">
     <div id="list" class="container container-4 clearfix">
       <div id="entrant" class="container _element container-5"></div>
       <div id="rooms" class="container _element container-6"></div>
     </div>
+
     <div id="messages" class="container _element container-7"></div>
     <div id="input" class="container container-8">
       <div class="container container-9 clearfix">
-        <input class="_input" placeholder="Type your message here..." type="text">
+        <input class="_input" placeholder="Type your message here..." type="text" autofocus>
         <p id="send" class="text text-3">Send!</p>
       </div>
     </div>
+
     <div id="settings" class="container _element container-10"></div>
   </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/events.js"></script>
+  <script type="text/javascript" src="./js/messages.js"></script>
 </body>
 </html>
