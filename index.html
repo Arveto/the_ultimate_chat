@@ -1,43 +1,93 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1.0">
-  <title>index</title>
-  <link rel="stylesheet" href="css/standardize.css">
-  <link rel="stylesheet" href="css/index-grid.css">
-  <link rel="stylesheet" href="css/index.css">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./public/css/index.css">
+    <title>UltimateChat</title>
+  </head>
+  <body>
 
-<body class="body page-index clearfix">
+    <div class="header" id="header">
 
-  <div id="header" class="container container-1 clearfix">
-    <p id="title" class="text text-1">ULTIMATE CHAT</p>
-    <div id="login" class="container container-2 clearfix">
-      <p class="text text-2">Log in</p>
-    </div>
-  </div>
+      <div class="header" id="convlogo">
+        <h3>Logo</h3>
+      </div>
 
-  <div id="chat" class="container container-3 clearfix">
-    <div id="list" class="container container-4 clearfix">
-      <div id="entrant" class="container _element container-5"></div>
-      <div id="rooms" class="container _element container-6"></div>
-    </div>
-
-    <div id="messages" class="container _element container-7"></div>
-    <div id="input" class="container container-8">
-      <div class="container container-9 clearfix">
-        <input class="_input" placeholder="Type your message here..." type="text" autofocus>
-        <p id="send" class="text text-3">Send!</p>
+      <div class="header settings">
+        <div class="header settings" id="profile">
+          <h3> ☠ Profil </h3>
+        </div>
+        <div class="header settings" id="settings">
+          <h3>  ⚙ Settings </h3>
+        </div>
       </div>
     </div>
 
-    <div id="settings" class="container _element container-10"></div>
-  </div>
+    <div class="chat">
+      <nav>
+        <div id="participants">
+          <h3>Participants</h3>
 
+          <ul>
+            <li>Bob</li>
+            <li>Alice</li>
+            <li>Charlie</li>
+          </ul>
+        </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="./js/events.js"></script>
-  <script type="text/javascript" src="./js/messages.js"></script>
-</body>
+        <div id="conversations">
+          <h3>Conversations</h3>
+
+          <ul>
+            <li>ga</li>
+            <li>bu</li>
+            <li>zo</li>
+            <li>meu</li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="current container">
+        <div class="current" id="settings">
+          <p>Conversation Infos</p>
+          <h3> ⚙ Conversation settings</h3>
+        </div>
+
+        <div class="current" id="messages">
+          <p class="message mine">mone</p>
+          <p class="message not_mine">not mine</p>
+          <p class="message not_mine">not mine</p>
+          <p class="message mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message not_mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message not_mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message not_mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p class="message not_mine">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+
+        <div class="current" id="input">
+          <textarea name="name" autofocus placeholder="Type messages here..."></textarea>
+        </div>
+      </div>
+
+      <div class="stickers">
+        <h3>Stickers</h3>
+
+        <div class="stickers" id="import">
+          <div class="stickers selection">
+          </div>
+
+          <p>Import new sticker</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./public/js/main.js" charset="utf-8"></script>
+    <script src="./public/js/events.js" charset="utf-8"></script>
+    <script src="./public/js/messages.js" charset="utf-8"></script>
+  </body>
 </html>
