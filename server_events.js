@@ -15,6 +15,7 @@ exports.events = function(socket, connection){
     socket.on('joinRoom', function(id){
         /*The users's room is gonna be updated, he's gonna receive a list of connected users and the last 20 messages.
         The room n_user will be incremented. The previoulsy connected users will receive a notice informing them about the new user.*/
+
         queryString = "UPDATE users SET room_id = ? WHERE socket_id = ?";
         connection.query(queryString, [id, socket.id], function(error, result, fields){  //Update user's 'room_id'
             if(error){
@@ -72,6 +73,7 @@ exports.events = function(socket, connection){
     socket.on('message',function(content, timestamp){
         /*The message must be added to the 'messages' table,
         and all connected users (except the sender) will get a 'message' event.*/
+
         queryString = "INSERT INTO messages (`content`, `sender_id`, `room_id`) VALUES (?, (SELECT id FROM users WHERE socket_id = ?), (SELECT room_id FROM users WHERE socket_id = ?) )";
 
         connection.query(queryString, [content, socket.id, socket.id], function(error, result, fields){   //Add the message to the batabase
@@ -79,7 +81,6 @@ exports.events = function(socket, connection){
                 console.log('Error in inserting message to table:\n'+error);
             }
         });
-
 
         queryString = "SELECT pseudo FROM users WHERE socket_id = ?";   //Send 'message' event to other users
         connection.query(queryString, [socket.id], function(error, result, fields){   //Get user's pseudo
