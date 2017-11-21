@@ -1,11 +1,10 @@
 exports.events = function(socket, connection){
+
         //The user is logged in and needs to see the rooms list
     socket.on('requireRooms',function(){
         var queryString = 'SELECT name, id, n_users FROM rooms';
         connection.query(queryString, function (error, result, fields) {    //Selects avalaible rooms
-            if(error){
-                console.log('Error in getting rooms list');
-            }
+            if (error) throw error;
             socket.emit('rooms', result);
         });
     });
@@ -18,49 +17,40 @@ exports.events = function(socket, connection){
 
         queryString = "UPDATE users SET room_id = ? WHERE socket_id = ?";
         connection.query(queryString, [id, socket.id], function(error, result, fields){  //Update user's 'room_id'
-            if(error){
-                console.log('Error in updating user\'s room:\n'+error);
-            }
+            if (error) throw error;
         });
 
         queryString = "UPDATE rooms SET n_users = n_users+1 WHERE id = ?";
         connection.query(queryString, [id], function(error, result, fields){  //Update room's 'n_users';
-            if(error){
-                console.log('Error n_users for the room:\n'+error);
-            }
+            if (error) throw error;
         });
 
         queryString = "SELECT content, sender_id, timestamp FROM messages WHERE room_id = ? ORDER BY id ASC LIMIT 20";
         connection.query(queryString, [id], function(error, result, fields){  //Select last 20 messages
-            if(error){
-                console.log('Error in selecting last messages:\n'+error);
-            }
-            else{
-                var message;
-                for(var i=0; i<result.length; i++){
-                    message = result[i];
-                    socket.emit('message', message);   //The new user is receiving last messages.
-                }
+            if (error) throw error;
+
+            var message;
+            for(var i=0; i<result.length; i++){
+                message = result[i];
+                socket.emit('message', message);   //The new user is receiving last messages.
             }
         });
 
         queryString = "SELECT pseudo, id FROM users WHERE room_id = ?";
         connection.query(queryString, [id], function(error, result, fields){  //Select users list
-            if(error){
-                console.log('Error in getting connected users:\n'+error);
-            }
-            else{
-                socket.emit('usersList', result); //The new user is receiving users list.
-            }
+            if (error) throw error;
+            socket.emit('usersList', result); //The new user is receiving users list.
         });
 
         queryString = "SELECT pseudo, room_id FROM users WHERE socket_id = ?";   //Selecting user's infos
         connection.query(queryString, [socket.id], function(error, result, fields){
+            if (error) throw error;
             var pseudo = result.pseudo;
             var room_id = result.room_id;
 
             queryString = "SELECT socket_id FROM users WHERE (room_id = ?) AND (socket_id != ?)";    //Selecting other room members
             connection.query(queryString, [room_id, socket.id], function(error, result, fields){
+                if (error) throw error;
                 for(var i=0; i<result.length; i++){
                     socket.to(result[i].socket_id).emit('newUser', {'pseudo': pseudo}); //Sending notice about newcomer
                 }
@@ -77,28 +67,69 @@ exports.events = function(socket, connection){
         queryString = "INSERT INTO messages (`content`, `sender_id`, `room_id`) VALUES (?, (SELECT id FROM users WHERE socket_id = ?), (SELECT room_id FROM users WHERE socket_id = ?) )";
 
         connection.query(queryString, [content, socket.id, socket.id], function(error, result, fields){   //Add the message to the batabase
-            if(error){
-                console.log('Error in inserting message to table:\n'+error);
-            }
+            if (error) throw error;
         });
 
         queryString = "SELECT pseudo FROM users WHERE socket_id = ?";   //Send 'message' event to other users
         connection.query(queryString, [socket.id], function(error, result, fields){   //Get user's pseudo
+            if (error) throw error;
             var pseudo = result.pseudo;
 
             queryString = "SELECT socket_id FROM users WHERE room_id = (SELECT room_id FROM users WHERE socket_id = ?) AND socket_id != ?";
             connection.query(queryString, [socket.id, socket.id], function(error, result, fields){    //Selects other user's socket_id in the room
+                if (error) throw error;
                 for(var i=0; i<result.length; i++){
-                    socket.to(result.socket_id).emit('message', {'content': content, 'pseudo': pseudo, 'timestamp': timestamp});  //Sends parameters as JSONs to be treated the same way clientside
+                    socket.to(result[i].socket_id).emit('message', {'content': content, 'pseudo': pseudo, 'timestamp': timestamp});  //Sends parameters as JSONs to be treated the same way clientside
                 }
             });
         });
     });
 
-    //TODO Leave room event (Send disconnection event to other users, update user's room_id to Null)
-    //socket.on('leaveRoom')
 
         //The user leaves the room
+    socket.on('leaveRoom', function(){
+        // Other users are going to receive a notice, the room's n_user and the user's room_id will be updated
+
+        var queryString = "SELECT pseudo FROM users WHERE socket_id = ?";   //Send 'userLeft' event to other users
+        connection.query(queryString, [socket.id], function(error, result, fields){   //Get user's pseudo
+            if (error) throw error;
+            var pseudo = result.pseudo;
+
+            queryString = "SELECT socket_id FROM users WHERE room_id = (SELECT room_id FROM users WHERE socket_id = ?) AND socket_id != ?";
+            connection.query(queryString, [socket.id, socket.id], function(error, result, fields){    //Selects other user's socket_id in the room
+                if (error) throw error;
+                for(var i=0; i<result.length; i++){
+                    socket.to(result[i].socket_id).emit('userLeft', {'pseudo': pseudo});
+                }
+            });
+        });
+
+        queryString = "SELECT room_id FROM users WHERE socket_id = ?";  //Selecting room to update it
+        connection.query(queryString, [socket.id], function(error, result, fields){
+            if (error) throw error;
+            var room_id = result.room_id;
+
+            queryString = "UPDATE rooms SET n_users = n_users-1 WHERE id = ?";
+            connection.query(queryString, [room_id], function(error, result, fields){
+                if (error) throw error;
+            });
+        })
+
+        queryString = "UPDATE users SET room_id = NULL WHERE socket_id = ?"; //Setting user's room to NULL
+        connection.query(queryString, [socket.id], function(error, result, fields){
+            if (error) throw error;
+        });
+
+
+            //The user leaves the site
+        socket.on('disconnect', function(){
+            console.log("User is gone =/");
+            var queryString = "UPDATE users SET room_id = NULL, socket_id = NULL where socket_id = ?";
+            connection.query(queryString, [socket.id], function(error, result, fields){
+                if (error) throw error;    
+            });
+        });
+    });
 }
 
     //TODO Disconnection event (socket_io, room to NULL)

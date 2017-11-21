@@ -23,7 +23,6 @@ app.get('/', function(req, res){
 });
 
 io.sockets.on('connection', function(socket){
-    console.log('User detected...');
     serverEvents.events(socket, connection);
 });
 
