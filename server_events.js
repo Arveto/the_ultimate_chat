@@ -120,6 +120,8 @@ exports.events = function(socket, connection){
             if (error) throw error;
         });
     });
+
+    
     //The user leaves the site
     socket.on('disconnect', function(){
         var queryString = "UPDATE users SET room_id = NULL, socket_id = NULL where socket_id = ?";
