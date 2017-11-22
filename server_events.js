@@ -1,5 +1,5 @@
 exports.events = function(socket, connection){
-
+    console.log('User connected');
         //The user is logged in and needs to see the rooms list
     socket.on('requireRooms',function(){
         var queryString = 'SELECT name, id, n_users FROM rooms';
@@ -119,17 +119,13 @@ exports.events = function(socket, connection){
         connection.query(queryString, [socket.id], function(error, result, fields){
             if (error) throw error;
         });
-
-
-            //The user leaves the site
-        socket.on('disconnect', function(){
-            console.log("User is gone =/");
-            var queryString = "UPDATE users SET room_id = NULL, socket_id = NULL where socket_id = ?";
-            connection.query(queryString, [socket.id], function(error, result, fields){
-                if (error) throw error;    
-            });
+    });
+    //The user leaves the site
+    socket.on('disconnect', function(){
+        var queryString = "UPDATE users SET room_id = NULL, socket_id = NULL where socket_id = ?";
+        connection.query(queryString, [socket.id], function(error, result, fields){
+            if (error) throw error;
+            console.log("User left");
         });
     });
 }
-
-    //TODO Disconnection event (socket_io, room to NULL)
