@@ -8,5 +8,5 @@ $("textarea").on('keypress', (e) => {     //send messages
 });
 
 socket.on('message', (message) => {       //display inners messages
-  message.disp(message.pseudo, message.content, message.timestamp);
+  Message.disp(message.pseudo, message.content, message.timestamp);
 });

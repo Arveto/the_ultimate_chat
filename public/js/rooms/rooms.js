@@ -1,34 +1,33 @@
 
 
-var Room = function (id, roomName, entrants) {  //Room constructor
-  this.num = Math.random();
+var Room = function (num, roomName, entrants) {  //Room constructor
+  this.num = num;
   this.roomName = roomName;
   this.entrants = entrants;
 
   this.disp = function () {
     let div = $('<div>').addClass('room').html('<strong>'+this.roomName+'</strong><span class="entrants">'+this.entrants+' entrants</span>').appendTo('#roomsList');
-    div.attr('id', "room_"+this.num)
+    div.attr('id', this.num);
     div.css('background-color', getRandomColor() );
 
     $(".room:last").on('click', function () {     //event 'onclick' => send new room to the server
       socket.emit('leaveRoom');
-      
+
       let roomId = this.id;
-      roomId.replace('room_', '');
       socket.emit('joinRoom', roomId);
+      console.log('change room');
     });
   };
 };
 
 
-function changeRoom(entrants) {
+function changeRoom(pseudo) {
   $("div").remove(".entrant");
   $("div#messages").empty();
 
-  entrants.forEach(entrant => {
-    let div = $('<div>').addClass('entrant').html('<strong>'+entrant+'</strong>').appendTo('#entrantsList');
+    let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
     div.css('background-color', getRandomColor() );
-  });
+
 }
 
 function getRandomColor() {

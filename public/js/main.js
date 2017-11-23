@@ -7,15 +7,17 @@ var socket = io.connect('http://localhost');  //enable connection with the serve
    room = new Room(room.num, room.roomName, room.entrants);
    room.disp();
  });
-  
+
   socket.on('message', (message) => {       //display inners messages      //TOADD
-    message.disp(message.pseudo, message.content, message.timestamp);
+    Message.disp(message.pseudo, message.content, message.timestamp);
   });
-  
+
   socket.on('usersList', (entrants) => {
-    entrants.forEach(entrant => {
-      changeRoom(entrant);
-    });
+    if (Array.isArray(entrants)){
+        for(let i = 0; i < entrants.length; i++){
+            changeRoom(entrants[i].pseudo)
+        }
+    }
   });
 
   $("textarea").on('keypress', (e) => {     //send messages

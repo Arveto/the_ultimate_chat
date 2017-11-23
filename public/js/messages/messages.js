@@ -1,7 +1,7 @@
 
-if (typeof message === 'undefined'){
+if (typeof Message === 'undefined'){
 
-  var message = {
+  var Message = {
 
     send: (message) => {    //when hit enter key, send message
 
@@ -13,10 +13,10 @@ if (typeof message === 'undefined'){
     },
 
 
-    disp: (content, pseudo, time) => {    //on 'message' event, display it
+    disp: (pseudo, content, time) => {    //on 'message' event, display it
 
-      $("<span>").html("<strong>"+pseudo+"</strong> "+time).insertBefore("p.message:first");
-      $("<p>").html(content).insertBefore("span:first").addClass("message not_mine");
+      $("<p>").html(content).appendTo("div#messages").addClass("message not_mine");
+      $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo("div#messages");
     }
   };
 
