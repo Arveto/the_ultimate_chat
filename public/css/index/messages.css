@@ -5,6 +5,7 @@
 
 .current.container{
 border: solid 1px;
+border-color: #ff8788;
 margin: 5px;
 padding: 10px;
 flex: 4;
@@ -59,13 +60,16 @@ padding-bottom: 20px;
 height: 100%;
 width: 100%;
 padding: 10px;
+overflow: auto;
 
 outline: none;
 resize: none;
 overflow-y: auto;
 background-color: transparent;
-caret-color: #84898f;
-color: #84898f;
+border-color: #ff8788;
+
+caret-color: #124c60;
+color: #124c60;
 }
 
 span{

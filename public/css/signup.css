@@ -1,7 +1,8 @@
 
 body{
-background-color: #474646;
-color: #ececec;
+background-color: #6d99a2;
+color: #124c60;
+font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 *{
@@ -10,7 +11,7 @@ color: #ececec;
 .container{
   height: 280px;
   width: 400px;
-  background-color: #777575;
+  background-color: #89c5d1;
 
   position: absolute;
   left: 50%;
@@ -38,7 +39,7 @@ button.unveilpw {
 
 input,
 button.unveilpw {
-   border-bottom: 1px solid silver;
+   border-bottom: 1px solid #ff8788;
 }
 
 label {
@@ -53,7 +54,7 @@ input {
 }
 .unveilpw {
    width: 50px;
-   background-color: rgba(0, 0, 0, .02);
+   background-color: rgba(248, 0, 0, 0.801);
 }
 
 /* Show/Hide text is put in CSS, so we can change it in CSS */
@@ -64,15 +65,15 @@ input {
 
 /* Unveiling activated */
 input[type="text"]+.unveilpw::before {
-   color: red;
+   color: #ff8788;
    content: "Hide";
 }
 
 /* Focus effect: Blue border on field when focus */
 input:focus,
 input:focus+.unveilpw {
-   border-bottom-color: #66BB6A;
-   box-shadow: 0px -1px 0px #66BB6A inset;
+   border-bottom-color: #fa6063;
+   box-shadow: 0px -1px 0px #fa7376 inset;
 }
 
 input.password{
@@ -89,7 +90,7 @@ button.unveilpw{
   -ms-transition: background-color 250ms;
   transition: background-color 250ms;
 
-  background-color: rgb(60, 167, 63);
+  background-color: #ff8788;
   border: none;
   padding: 20px;
   border-radius: 3px;
@@ -102,7 +103,7 @@ button.unveilpw{
   margin-right: -10px;
 }
 button.unveilpw:hover{
-  background-color: #66BB6A;
+  background-color: #fc6366;
 }
 
 button.submit{
@@ -114,12 +115,12 @@ button.submit{
 
   margin-top: 40px;
 
-  background-color: rgb(60, 167, 63);
+  background-color: #ff8788;
   border: none;
   padding: 20px;
   border-radius: 3px;
 }
 
 button.submit:hover{
-  background-color: #66BB6A;
+  background-color: #f55c5f;
 }

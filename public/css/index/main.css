@@ -1,12 +1,13 @@
 
 body{
-  font-family: monospace;
-  color: #84898f;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color: #124c60;
+  font-weight: bold;
 }
 
 
 .chat{
-  background: #474646;
+  background: #6d99a2;
 
   padding: 5px 10px 5px 10px;
   position: absolute;
@@ -23,16 +24,6 @@ body{
   text-transform: uppercase;
 }
 
-
-button{
-  background-color: #c64141;
-  
-  position: absolute;
-  height: 100px;
-  width: 200px;
-  right: 50%;
-  bottom: 50%;
-
-  border-radius: 20px;
-  border: none;
+#convInfos{
+  margin-top: 22px;
 }
