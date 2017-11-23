@@ -23,6 +23,6 @@ var socket = io.connect('http://localhost');  //enable connection with the serve
   $("textarea").on('keypress', (e) => {     //send messages
     if ( e.keyCode == 13 ) {  //enter key
       e.preventDefault();
-      message.send( $("textarea").val() );
+      Message.send( $("textarea").val() );
     }
   });
