@@ -3,7 +3,7 @@ $("textarea").on('keypress', (e) => {     //send messages
   if ( e.keyCode == 13 ) {  //enter key
     e.preventDefault();
     console.log(typeof message);
-    message.send( $("textarea").val() );
+    Message.send( $("textarea").val() );
   }
 });
 
