@@ -27,3 +27,39 @@ body{
 #convInfos{
   margin-top: 22px;
 }
+
+
+  /*  sliders  */
+
+  .slider {
+    margin-bottom: 20px;
+
+    -webkit-appearance: none;
+    width: 90%;
+    height: 2px;
+    border-radius: 5px;
+    border: 1px solid #62656c;
+    background: #21242b;
+    outline: none;
+    opacity: 0.8;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #62656c;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #62656c;
+    cursor: pointer;
+}
