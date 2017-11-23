@@ -1,0 +1,32 @@
+/*
+ * css for the header
+ */
+
+.header#header{
+flex:1;
+flex: 1;
+
+display: flex;
+justify-content: space-between;
+background-color: #43A047;
+color: #21242b;
+
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+height: 50px;
+}
+
+.header#convlogo{
+margin-left: 10px;
+}
+
+.header.settings{
+display: flex;
+}
+
+.header.settings:nth-child(n){
+margin-left: 10px;
+margin-right: 10px;
+}

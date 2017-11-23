@@ -3,12 +3,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="./public/css/index.css">
+    <link rel="stylesheet" href="./public/css/index/main.css">
+    <link rel="stylesheet" href="./public/css/index/header.css">
+    <link rel="stylesheet" href="./public/css/index/messages.css">
+    <link rel="stylesheet" href="./public/css/index/nav.css">
     <title>UltimateChat</title>
   </head>
   <body>
 
-    <div class="header" id="header">
+    <div class="site header" id="header">
 
       <div class="header" id="convlogo">
         <h3>Logo</h3>
@@ -26,36 +29,27 @@
 
     <div class="chat">
       <nav>
-        <div id="participants">
-          <h3>Participants</h3>
-
-          <ul>
-            <li>Bob</li>
-            <li>Alice</li>
-            <li>Charlie</li>
-          </ul>
+        <div id="entrantsList">
+          <h3 class="site">Entrants</h3>
+          
         </div>
 
-        <div id="conversations">
-          <h3>Conversations</h3>
-
-          <ul>
-            <li>ga</li>
-            <li>bu</li>
-            <li>zo</li>
-            <li>meu</li>
-          </ul>
+        <div id="roomsList">
+          <h3 class="site">Rooms</h3>
+            <div class="room">
+            </div>
         </div>
       </nav>
 
       <div class="current container">
         <div class="current" id="settings">
-          <p>Conversation Infos</p>
-          <h3> ⚙ Conversation settings</h3>
+          <p>Conversation infos...</p>
+          <h3 class="site"> ⚙ Conversation settings</h3>
         </div>
 
         <div class="current" id="messages">
-          //all <p> messages
+            <p class="message not_mine">oui</p><span><strong>oui </strong> 11:11:51</span>
+            <p class="message not_mine">salut</p><span><strong>zeded </strong> 11:11:11</span>
         </div>
 
         <div class="current" id="input">
@@ -64,7 +58,7 @@
       </div>
 
       <div class="stickers">
-        <h3>Stickers</h3>
+        <h3 class="site">Stickers</h3>
 
         <div class="stickers" id="import">
           <div class="stickers selection">
@@ -77,7 +71,10 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="./public/js/main.js" charset="utf-8"></script>
-    <script src="./public/js/events.js" charset="utf-8"></script>
-    <script src="./public/js/messages.js" charset="utf-8"></script>
+
+    <script src="./public/js/messages/events.js" charset="utf-8"></script>
+    <script src="./public/js/messages/messages.js" charset="utf-8"></script>
+
+    <script src="./public/js/rooms/rooms.js" charset="utf-8"></script>
   </body>
 </html>

@@ -4,19 +4,22 @@
   <head>
     <meta charset="utf-8">
     <title>UltimateChat - Login</title>
-    <link rel="stylesheet" href="css/signup.css">
+    <link rel="stylesheet" href="./public/css/signup.css">
   </head>
   <body>
     <div class="container">
       <form method="post" action="index.html">
 
-        <p>Pseudo : <input type="text"></p>
-        <p>Password : <input type="text"></p>
-        <p>Confirm : <input type="text"></p>
-        <p>Sexxxxx : <input id="M" name="sex" type="radio"  value="M"> <label for="M">M</label> <input id="F" name="sex" type="radio"  value="F"> <label for="F">F</label></p>
+        <label for="username">Choose an username:</label>
+        <input type="text" name="username" id="username" size="30" placeholder="John Doe" autofocus/>
+        
+        <label for="password">Choose a password: </label>
+        <input type="password" name="password" id="password" class="password" size="30" placeholder="Password"/><button type="button" class="unveilpw" onclick="revealpass('password');"></button>
 
-        <button type="submit">Submit</button>
+      </br><button class="submit" type="submit">Submit</button>
       </form>
     </div>
+
+    <script src="./public/js/signup.js"></script>
   </body>
 </html>

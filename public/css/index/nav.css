@@ -1,0 +1,84 @@
+/*
+ * css for the border navs
+ */
+
+
+    /*left*/
+  nav{
+  flex:1;
+
+  padding-top: 20px;
+
+  overflow-x: hidden;
+
+  display: flex;
+  flex-direction: column;
+  }
+
+
+  /*entrants*/
+  #entrantsList{
+    flex: 1;
+    overflow-y: auto;
+  }
+
+
+  /*rooms*/
+  
+  #roomsList{
+    flex: 1;
+    overflow-y: auto;
+  }
+
+
+  .room{
+    display: flex;
+    justify-content: space-between;
+
+    transition: margin;
+    transition: background-color 500ms;
+
+    padding: 0 10px 0 10px;
+
+    border-radius: 3px;
+    margin: 2px;
+
+  }
+  .room:hover{
+    margin-left: 20px;
+    background-color: #60be92;
+  }
+  .room strong{
+    align-content: flex-start;
+    margin: 20px 0 20px 0;
+  }
+  .room span{
+    align-content: flex-end;
+    padding-top: 20px;
+  }
+
+
+  .entrant{
+    display: flex;
+    justify-content: space-between;
+
+    transition: margin;
+    transition: background-color 500ms;
+
+    padding: 0 10px 0 10px;
+
+    border-radius: 2px;
+    margin: 2px;
+  }
+  .entrant:hover{
+    margin-left: 20px;
+    background-color: #575555;
+  }
+/*right*/
+.stickers{
+flex: 1;
+}
+
+::-webkit-scrollbar {
+display: none;
+}

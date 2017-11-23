@@ -1,0 +1,79 @@
+
+/*
+  * css file for messages
+  */
+
+.current.container{
+border: solid 1px;
+margin: 5px;
+padding: 10px;
+flex: 4;
+
+display: flex;
+flex-direction: column;
+}
+
+.current#settings{
+flex: 1;
+margin: 5px;
+
+display: flex;
+justify-content: space-between;
+}
+
+.current#messages{
+overflow-y: auto;
+
+flex: 15;
+
+display: flex;
+flex-direction: column-reverse;
+
+width: 100%;
+}
+
+.message{
+background-color: #4b4a4a;
+padding: 5px 10px 5px 10px;
+border-radius: 10px;
+}
+
+.message.mine{
+align-self: flex-end;
+background-color: #66BB6A;
+color: #474646;
+}
+
+.message.not_mine{
+align-self: flex-start;
+color: #84898f;
+}
+
+.current#input{
+flex: 2;
+padding-right: 25px;
+padding-bottom: 20px;
+}
+
+.current#input textarea{
+height: 100%;
+width: 100%;
+padding: 10px;
+
+outline: none;
+resize: none;
+overflow-y: auto;
+background-color: transparent;
+caret-color: #84898f;
+color: #84898f;
+}
+
+span{
+  font-size: 10px;
+  margin-bottom: -10px;
+}
+
+strong{
+  font-size: 15px;
+  margin-right: 20px;
+}

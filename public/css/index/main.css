@@ -1,0 +1,38 @@
+
+body{
+  font-family: monospace;
+  color: #84898f;
+}
+
+
+.chat{
+  background: #474646;
+
+  padding: 5px 10px 5px 10px;
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.site{
+  text-transform: uppercase;
+}
+
+
+button{
+  background-color: #c64141;
+  
+  position: absolute;
+  height: 100px;
+  width: 200px;
+  right: 50%;
+  bottom: 50%;
+
+  border-radius: 20px;
+  border: none;
+}
