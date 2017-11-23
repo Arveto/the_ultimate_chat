@@ -15,8 +15,8 @@ if (typeof Message === 'undefined'){
 
     disp: (pseudo, content, time) => {    //on 'message' event, display it
 
-      $("<p>").html(content).appendTo("div#messages").addClass("message not_mine");
-      $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo("div#messages");
+      $("<p>").html(content).insertBefore("p.message:first").addClass("message not_mine");
+      $("<span>").html("<strong>"+pseudo+"</strong> "+time).insertBefore("p.message:first");
     }
   };
 
