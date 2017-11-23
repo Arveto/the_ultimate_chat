@@ -14,20 +14,18 @@ var Room = function (num, roomName, entrants) {  //Room constructor
       socket.emit('leaveRoom');
 
       let roomId = this.id;
-      socket.emit('joinRoom', roomId);
-      console.log('change room');
+      socket.emit('joinRoom', roomId);      //server emits 'usersList' event
     });
   };
 };
 
 
 function changeRoom(pseudo) {
-  $("div").remove(".entrant");
+  $("div#entrants").empty();
   $("div#messages").empty();
 
-    let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
-    div.css('background-color', getRandomColor() );
-
+  let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
+  div.css('background-color', getRandomColor() );
 }
 
 function getRandomColor() {
