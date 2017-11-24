@@ -5,18 +5,21 @@ if (typeof Message === 'undefined'){
 
     send: (message) => {    //when hit enter key, send message
 
-      socket.emit('message', {message: $('textarea').val()});
+      socket.emit('message', message);
 
       //display locally
-      $("<p>").html(message).insertBefore("p.message:first").addClass("message mine");
+      console.log("send message : " + message);
+      $("<p>").html(message).appendTo('.current#messages').addClass("message mine");
       $("textarea").val('');
     },
 
 
     disp: (pseudo, content, time) => {    //on 'message' event, display it
 
-      $("<p>").html(content).insertBefore("p.message:first").addClass("message not_mine");
-      $("<span>").html("<strong>"+pseudo+"</strong> "+time).insertBefore("p.message:first");
+    console.log("message rescived : " + content);
+
+      $("<p>").html(content).appendTo('.current#messages').addClass("message not_mine");
+      $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo('.current#messages');
     }
   };
 
