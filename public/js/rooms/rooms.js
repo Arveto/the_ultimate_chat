@@ -1,5 +1,5 @@
 
-var i=0;
+var color=0;
 var Room = function (num, roomName, entrants) {  //Room constructor
   this.num = num;
   this.roomName = roomName;
@@ -45,9 +45,9 @@ function getColor(target) {
   let entrant = ['a7baff', 'b8b8ff', 'd0c2ff', 'ddbdfe', 'edbaff'];
 
   if(target == "room"){
-    let color = '#' + room[i];
+    let color = '#' + room[color];
   } else {
-    let color = '#' + entrant[]
+    let color = '#' + entrant[color];
   }
   return color;
 }
