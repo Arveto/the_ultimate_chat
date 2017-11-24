@@ -2,8 +2,9 @@
 $("textarea").on('keypress', (e) => {     //send messages
   if ( e.keyCode == 13 ) {  //enter key
     e.preventDefault();
-    console.log(typeof message);
-    Message.send( $("textarea").val() );
+    if ($("textarea").val()){
+      Message.send( $("textarea").val() );
+    }
   }
 });
 
