@@ -8,7 +8,6 @@ if (typeof Message === 'undefined'){
       socket.emit('message', message);
 
       //display locally
-      console.log("send message : " + message);
       $("<p>").html(message).appendTo('.current#messages').addClass("message mine");
       $("textarea").val('');
     },
@@ -16,10 +15,12 @@ if (typeof Message === 'undefined'){
 
     disp: (pseudo, content, time) => {    //on 'message' event, display it
 
-    console.log("message rescived : " + content);
-
-      $("<p>").html(content).appendTo('.current#messages').addClass("message not_mine");
+      if(pseudo == document.cookie.replace(/(?:(?:^|.*;\s*)pseudo\s*\=\s*([^;]*).*$)|^.*$/, "$1")){
+        $("<p>").html(message).appendTo('.current#messages').addClass("message mine");
+      } else {
       $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo('.current#messages');
+      $("<p>").html(content).appendTo('.current#messages').addClass("message not_mine");
+      }
     }
   };
 
