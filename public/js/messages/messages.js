@@ -30,11 +30,10 @@ if (typeof Message === 'undefined'){
     },
 
     scroll: function () {
-			    var speed = 750; // Durée de l'animation (en ms)
-			    $('.current#messages').animate( { scrollTop: Infinity }, speed ); // Go
-			    return false;
-		      });
-		};
+        console.log("scroll");
+	          $( "div.current#messages" ).scrollTop( $("div.current#messages").height() + $(window).height() );
+    }
+
   };
 
 } else {
