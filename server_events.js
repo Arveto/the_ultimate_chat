@@ -1,12 +1,10 @@
 exports.chatEvents = function(socket, connection){
 
-
-
         //The user enters a room
     socket.on('joinRoom', function(id){
         /*The users's room is gonna be updated, he's gonna receive a list of connected users and the last 20 messages.
         The room n_user will be incremented. The previoulsy connected users will receive a notice informing them about the new user.*/
-        console.log('joinRoom detected');
+
         var queryString = "UPDATE users SET room_id = ? WHERE socket_id = ?";
         connection.query(queryString, [id, socket.id], function(error, result, fields){  //Update user's 'room_id'
             if (error) throw error;
@@ -17,18 +15,20 @@ exports.chatEvents = function(socket, connection){
             if (error) throw error;
         });
 
+        var lastMessages;
+        var pseudos = [];
         queryString = "SELECT content, sender_id, timestamp FROM messages WHERE room_id = ? ORDER BY id ASC LIMIT 20";
         connection.query(queryString, [id], function(error, result, fields){  //Select last 20 messages
             if (error) throw error;
+            var lastMessages = result;
 
-            var oldResult = result;
-            console.log(result);
-            for(var i=0; i<result.length; i++){
-                queryString = "SELECT pseudo FROM users WHERE id = ?";
-                console.log(oldResult[i].content);
-                connection.query(queryString, [oldResult[i].sender_id], function(error, result, fields){
-                    socket.emit('message', {'content': oldResult[i].content, 'pseudo': result.pseudo, 'timestamp': oldResult[i].timestamp});   //The new user is receiving last messages.
-                });  //Select last 20 messages
+
+            queryString = "SELECT pseudo FROM users WHERE id = ?";
+            for(let i=0; i<result.length; i++){ //Select pseudos associated with messages
+                connection.query(queryString, [result[i].sender_id], function(error, result, fields){
+                    if (error) throw error;
+                    socket.emit('message', {'content': lastMessages[i].content, 'pseudo': result[0].pseudo, 'timestamp': lastMessages[i].timestamp});
+                });
             }
         });
 
@@ -57,25 +57,46 @@ exports.chatEvents = function(socket, connection){
 
         //A new message is sent by the user
     socket.on('message',function(content){
+        console.log('Receiving message...');
         /*The message must be added to the 'messages' table,
         and all connected users (except the sender) will get a 'message' event.*/
-        var timestamp = Date.now();
+        var currentTimestamp = Date.now();
 
-        queryString = "INSERT INTO messages (`content`, `sender_id`, `room_id`, 'timestamp') VALUES (?, (SELECT id FROM users WHERE socket_id = ?), (SELECT room_id FROM users WHERE socket_id = ?), ?)";
-        connection.query(queryString, [content, socket.id, socket.id, timestamp], function(error, result, fields){   //Add the message to the batabase
+        var sender_id;
+        var room_id;
+
+        var queryString = "SELECT id FROM users WHERE socket_id = ?";   //Get sender id
+        connection.query(queryString, [socket.id], function(error, result, fields){
             if (error) throw error;
+            if(result[0].id){
+                sender_id = result[0].id;
+            }
+            sender_id = result[0].id;
+
+            var queryString = "SELECT room_id FROM users WHERE socket_id = ?";  //Get sender room_id
+            connection.query(queryString, [socket.id], function(error, result, fields){
+                if (error) throw error;
+                room_id = result[0].room_id;
+
+                queryString = "INSERT INTO messages (content, sender_id, room_id, timestamp) VALUES (?, ?, ?, ?)";  //Add the message to the database
+                connection.query(queryString, [content, sender_id, room_id, currentTimestamp], function(error, result, fields){
+                    if (error) throw error;
+                });
+            });
         });
+
+
             //Send 'message' event to other users
         queryString = "SELECT pseudo FROM users WHERE socket_id = ?";
         connection.query(queryString, [socket.id], function(error, result, fields){   //Get user's pseudo
             if (error) throw error;
-            var pseudo = result.pseudo;
+            var pseudo = result[0].pseudo;
 
             queryString = "SELECT socket_id FROM users WHERE room_id = (SELECT room_id FROM users WHERE socket_id = ?) AND socket_id != ?";
             connection.query(queryString, [socket.id, socket.id], function(error, result, fields){    //Selects other user's socket_id in the room
                 if (error) throw error;
                 for(var i=0; i<result.length; i++){
-                    socket.to(result[i].socket_id).emit('message', {'content': content, 'pseudo': pseudo, 'timestamp': timestamp});  //Sends parameters as JSONs to be treated the same way clientside
+                    socket.to(result[i].socket_id).emit('message', {'content': content, 'pseudo': pseudo, 'timestamp':currentTimestamp});  //Sends parameters as JSONs to be treated the same way clientside
                 }
             });
         });

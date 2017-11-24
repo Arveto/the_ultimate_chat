@@ -7,7 +7,3 @@ $("textarea").on('keypress', (e) => {     //send messages
     }
   }
 });
-
-socket.on('message', (message) => {       //display inners messages
-  Message.disp(message.pseudo, message.content, message.timestamp);
-});

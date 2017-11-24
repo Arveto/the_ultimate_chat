@@ -1,5 +1,5 @@
 
-var color=0;
+var i=0;
 var Room = function (num, roomName, entrants) {  //Room constructor
   this.num = num;
   this.roomName = roomName;
@@ -27,7 +27,7 @@ var Room = function (num, roomName, entrants) {  //Room constructor
 
 var j=0;
 function changeRoom(pseudo) {
-  $("div#entrants").empty();
+  
   $("div#messages").empty();
 
   let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
@@ -45,9 +45,9 @@ function getColor(target) {
   let entrant = ['a7baff', 'b8b8ff', 'd0c2ff', 'ddbdfe', 'edbaff'];
 
   if(target == "room"){
-    let color = '#' + room[color];
+    var color = '#' + room[i];
   } else {
-    let color = '#' + entrant[color];
+    var color = '#' + entrant[i];
   }
   return color;
 }

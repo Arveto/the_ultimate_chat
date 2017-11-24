@@ -1,5 +1,5 @@
 
-var socket = io.connect('http://localhost');  //enable connection with the server
+var socket = io.connect('http://192.168.0.156');  //enable connection with the server
 
 
 
@@ -13,6 +13,7 @@ var socket = io.connect('http://localhost');  //enable connection with the serve
   });
 
   socket.on('usersList', (entrants) => {
+      $("div#entrantsList .entrant").remove();
     if (Array.isArray(entrants)){
         for(let i = 0; i < entrants.length; i++){
             changeRoom(entrants[i].pseudo)

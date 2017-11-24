@@ -1,4 +1,3 @@
-
 if (typeof Message === 'undefined'){
 
   var Message = {
@@ -15,8 +14,11 @@ if (typeof Message === 'undefined'){
 
     disp: (pseudo, content, time) => {    //on 'message' event, display it
 
-      if(pseudo == document.cookie.replace(/(?:(?:^|.*;\s*)pseudo\s*\=\s*([^;]*).*$)|^.*$/, "$1")){
-        $("<p>").html(message).appendTo('.current#messages').addClass("message mine");
+    var re = new RegExp('[; ]username=([^\\s;]*)');
+    var login = (' '+document.cookie).match(re);
+
+      if(pseudo == login[1]){
+        $("<p>").html(content).appendTo('.current#messages').addClass("message mine");
       } else {
       $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo('.current#messages');
       $("<p>").html(content).appendTo('.current#messages').addClass("message not_mine");

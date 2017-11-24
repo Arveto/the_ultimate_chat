@@ -23,7 +23,7 @@ justify-content: space-between;
 }
 
 .current#messages{
-overflow-y: scroll;
+overflow-y: auto;
 
 flex: 15;
 
