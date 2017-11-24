@@ -57,7 +57,6 @@ exports.chatEvents = function(socket, connection){
 
         //A new message is sent by the user
     socket.on('message',function(content){
-        console.log('Receiving message...');
         /*The message must be added to the 'messages' table,
         and all connected users (except the sender) will get a 'message' event.*/
         var currentTimestamp = Date.now();

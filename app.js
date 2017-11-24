@@ -26,10 +26,10 @@ app.use(cookieParser());
 var password;
 app.get('/', function(req, res){
     if(req.cookies.password == undefined){
+        password = req.cookies.password;
         res.redirect('/signup');
     }
     else{
-        password = req.cookies.password;
         res.sendFile('index.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat\\'});
     }
 
@@ -40,22 +40,34 @@ app.get('/signup', function(req, res){
 });
 
 app.post('/signup', urlencodedParser, function(req, res){
-        var userTest;
-
-        var queryString = "SELECT id FROM users WHERE pseudo = ?";
-        connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){
-            userTest = result.length; //If the users exists ==1, else ==0;
-        });
-        console.log(userTest);
-        if(userTest){
-            var queryString = "INSERT INTO users (`pseudo`, `password`) VALUES (?, ?)";
-            connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){
-                if (error) throw error;
-            });
+        console.log('Post detected')
+        var queryString = "SELECT id FROM users WHERE pseudo = ? AND password = ?";
+        connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){;
+            try {    //If the user exist <3
+            let test = result[0].id;
             res.cookie('password', req.body.password);
             res.cookie('username', req.body.username);
             res.redirect('/');
-        }
+            }
+            catch(e){   //The user exists
+                var queryString = "SELECT id FROM users WHERE pseudo = ?";
+                connection.query(queryString, [req.body.username], function(error, result, fields){
+                    try{   //If the pseudo exist
+                        let test = result[0].id;
+                        res.redirect('/signup');
+                    }
+                    catch(e){   //The pseudo exist
+                        var queryString = "INSERT INTO users (`pseudo`, `password`) VALUES (?, ?)";
+                        connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){
+                            if (error) throw error;
+                        });
+                        res.cookie('password', req.body.password);
+                        res.cookie('username', req.body.username);
+                        res.redirect('/');
+                    }
+                });
+            }
+        });
 });
 
 
