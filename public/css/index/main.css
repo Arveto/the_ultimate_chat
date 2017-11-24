@@ -31,6 +31,10 @@ body{
 
   /*  sliders  */
 
+div.settings{
+  overflow-y: scroll;
+}
+
   .slider {
     margin-bottom: 20px;
 
