@@ -24,7 +24,7 @@
 
 
   /*rooms*/
-  
+
   #roomsList{
     flex: 1;
     overflow-y: auto;
@@ -91,7 +91,7 @@
     background-color: #575555;
   }
 /*right*/
-.stickers{
+.settings:not(#settings){
 flex: 1;
 }
 
