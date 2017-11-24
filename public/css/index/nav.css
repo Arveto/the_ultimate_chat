@@ -91,7 +91,7 @@
     background-color: #575555;
   }
 /*right*/
-.settings:not(#settings){
+.settings{
 flex: 1;
 }
 

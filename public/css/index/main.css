@@ -36,7 +36,7 @@ body{
 
   /*  sliders  */
 
-div.settings:not(#settings){
+div.settings:not(.header){
   overflow-y: scroll;
 }
 
