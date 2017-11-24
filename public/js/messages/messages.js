@@ -9,6 +9,8 @@ if (typeof Message === 'undefined'){
       //display locally
       $("<p>").html(message).appendTo('.current#messages').addClass("message mine");
       $("textarea").val('');
+
+      Message.scroll();
     },
 
 
@@ -23,7 +25,16 @@ if (typeof Message === 'undefined'){
       $("<span>").html("<strong>"+pseudo+"</strong> "+time).appendTo('.current#messages');
       $("<p>").html(content).appendTo('.current#messages').addClass("message not_mine");
       }
-    }
+
+      Message.scroll();
+    },
+
+    scroll: function () {
+			    var speed = 750; // Durée de l'animation (en ms)
+			    $('.current#messages').animate( { scrollTop: Infinity }, speed ); // Go
+			    return false;
+		      });
+		};
   };
 
 } else {
