@@ -67,9 +67,6 @@ exports.chatEvents = function(socket, connection){
         var queryString = "SELECT id FROM users WHERE socket_id = ?";   //Get sender id
         connection.query(queryString, [socket.id], function(error, result, fields){
             if (error) throw error;
-            if(result[0].id){
-                sender_id = result[0].id;
-            }
             sender_id = result[0].id;
 
             var queryString = "SELECT room_id FROM users WHERE socket_id = ?";  //Get sender room_id

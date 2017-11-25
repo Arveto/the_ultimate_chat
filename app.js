@@ -26,10 +26,10 @@ app.use(cookieParser());
 var password;
 app.get('/', function(req, res){
     if(req.cookies.password == undefined){
-        password = req.cookies.password;
         res.redirect('/signup');
     }
     else{
+        password = req.cookies.password;
         res.sendFile('index.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat\\'});
     }
 
@@ -40,23 +40,22 @@ app.get('/signup', function(req, res){
 });
 
 app.post('/signup', urlencodedParser, function(req, res){
-        console.log('Post detected')
         var queryString = "SELECT id FROM users WHERE pseudo = ? AND password = ?";
         connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){;
-            try {    //If the user exist <3
+            try {    //If the user exists <3
             let test = result[0].id;
             res.cookie('password', req.body.password);
             res.cookie('username', req.body.username);
             res.redirect('/');
             }
-            catch(e){   //The user exists
+            catch(e){   //The doesn't exist
                 var queryString = "SELECT id FROM users WHERE pseudo = ?";
                 connection.query(queryString, [req.body.username], function(error, result, fields){
-                    try{   //If the pseudo exist
+                    try{   //If the pseudo exists
                         let test = result[0].id;
                         res.redirect('/signup');
                     }
-                    catch(e){   //The pseudo exist
+                    catch(e){   //The pseudo doesn't exist: account is created
                         var queryString = "INSERT INTO users (`pseudo`, `password`) VALUES (?, ?)";
                         connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){
                             if (error) throw error;
@@ -76,7 +75,7 @@ io.sockets.on('connection', function(socket){
 
     var queryString = "UPDATE users SET socket_id = ? WHERE password = ?";
     connection.query(queryString, [socket.id, password], function (error, result, fields) {    //Updates socket_id
-        if (error) throw error
+        if (error) throw error;
     });
 
         //The user needs to see the rooms list
