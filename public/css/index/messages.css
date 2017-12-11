@@ -81,3 +81,10 @@ strong{
   font-size: 15px;
   margin-right: 20px;
 }
+
+
+
+p.chatEvent{
+  color: #66BB6A;
+  font-style: italic;
+}

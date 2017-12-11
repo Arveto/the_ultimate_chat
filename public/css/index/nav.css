@@ -131,6 +131,12 @@ div.settings:not(.header){
     cursor: pointer;
 }
 
+button#reinitColors{
+  background-color: #ff8788;
+  color: #124c60;
+  border-radius: 5px;
+}
+
 
 ::-webkit-scrollbar {
 display: none;

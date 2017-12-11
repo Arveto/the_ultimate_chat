@@ -1,4 +1,35 @@
 
+$("button#reinitColors").on("click", () => {
+  localStorage.removeItem('colors');
+});
+
+$("button#saveTheme").on('click', () => {
+  let colors = {};
+  colors.header = $("div.site.header").css("background-color");
+  colors.background = $(".chat").css("background-color");
+  colors.text = $("body").css("color");
+  colors.headertext = $(".header#header").css("color");
+  colors.background = $(".chat").css("background-color");
+  colors.myMessagesBackground = $(".message.mine").css("background-color");
+  colors.myMessagesText = $(".message.mine").css("color");
+
+  localStorage.setItem('colors', colors);
+})
+
+function setColors () {
+  var colors = localStorage.getItem("colors");
+
+  if(colors) {
+    $("#header").css('background-color', colors.header);  //header & borders
+    $("*:not(input.slider)").css('border-color', colors.header);
+    $(".chat").css('background-color', colors.background);  //main background color
+    $("body").css('color', colors.text);  //text color
+    $(".header#header").css('color', colors.headertext); //header text color
+    $(".message.mine").css("background-color", colors.myMessagesBackground); //message.mine background
+    $(".message.mine").css("color", colors.myMessagesText); //message.mine text color
+  }
+}
+
     //header
 $(".header #red").on('change', function(){
     $("#header").css('background-color', 'rgb(' + $(this).val() + ', '+ $("#green:last").val() + ', '+ $("#blue:last").val() + ')');

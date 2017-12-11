@@ -1,5 +1,5 @@
 
-var i=0;
+var roomColor=0;
 var Room = function (num, roomName, entrants) {  //Room constructor
   this.num = num;
   this.roomName = roomName;
@@ -18,26 +18,34 @@ var Room = function (num, roomName, entrants) {  //Room constructor
     });
   };
 
+
   if(i>=4){
-    i++;
+    roomColor=0;
   } else {
-    i=0
+    roomColor++;
   }
 };
 
-var j=0;
-function changeRoom(pseudo) {
-  
+
+
+var entrantColor=0;
+function newEntrant(pseudo) {
+
   $("div#messages").empty();
 
   let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
   div.css('background-color', getColor("entrant") );
+  div.attr('id', pseudo);
 
   if(i>=4){
-    i++;
+    entrantColor=0;
   } else {
-    i=0
+    entrantColor++;
   }
+}
+
+function userLeft(pseudo) {
+  $('#entrantsList div.entrant#' + pseudo).remove();
 }
 
 function getColor(target) {
@@ -45,9 +53,9 @@ function getColor(target) {
   let entrant = ['a7baff', 'b8b8ff', 'd0c2ff', 'ddbdfe', 'edbaff'];
 
   if(target == "room"){
-    var color = '#' + room[i];
+    var color = '#' + room[roomColor];
   } else {
-    var color = '#' + entrant[i];
+    var color = '#' + entrant[entrantColor];
   }
   return color;
 }

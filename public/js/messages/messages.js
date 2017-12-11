@@ -29,6 +29,18 @@ if (typeof Message === 'undefined'){
       Message.scroll();
     },
 
+    chatEvent : (type, content) => {  // content : object with arguments
+      if (type == "newEntrant") {
+        let pseudo = content.pseudo;
+        $("<p>").html("Please welcome a new challenger : " + pseudo + " !").appendTo(".current#messages").addClass("chatEvent");
+      }
+
+      if (type == "userLeft") {
+        let pseudo = content.pseudo;
+        $("<p>").html(pseudo + " left the room").appendTo(".current#messages").addClass("chatEvent");
+      }
+    }
+
     scroll: function () {
         console.log("scroll");
 	          $( "div.current#messages" ).scrollTop( $("div.current#messages").height() + $(window).height() );
