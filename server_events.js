@@ -31,15 +31,16 @@ exports.chatEvents = function(socket, connection){
         queryString = "SELECT pseudo FROM users WHERE socket_id = ?";   //Selecting user's infos
         connection.query(queryString, [socket.id], function(error, result, fields){
             if (error) throw error;
-			var pseudo = result[0].pseudo;
 
-            queryString = "SELECT socket_id FROM users WHERE (room_id = ?) AND (socket_id != ?)";    //Selecting other room members
-            connection.query(queryString, [id, socket.id], function(error, result, fields){
-                if (error) throw error;
-                for(var i=0; i<result.length; i++){
-                    socket.to(result[i].socket_id).emit('newUser', {'pseudo': pseudo}); //Sending notice about newcomer
-                }
-            });
+				var pseudo = result[0].pseudo;
+
+	            queryString = "SELECT socket_id FROM users WHERE (room_id = ?) AND (socket_id != ?)";    //Selecting other room members
+	            connection.query(queryString, [id, socket.id], function(error, result, fields){
+	                if (error) throw error;
+	                for(var i=0; i<result.length; i++){
+	                    socket.to(result[i].socket_id).emit('newUser', {'pseudo': pseudo}); //Sending notice about newcomer
+	                }
+	            });
         });
 
 		var queryString = "UPDATE users SET room_id = ? WHERE socket_id = ?";
@@ -106,19 +107,15 @@ exports.chatEvents = function(socket, connection){
     socket.on('leaveRoom', function(room_id){
         // Other users are going to receive a notice, the room's n_user and the user's room_id will be updated
 		var pseudo;
-		console.log('ROOOOM ID='+room_id);
 
         var queryString = "SELECT pseudo FROM users WHERE socket_id = ?";   //Send 'userLeft' event to other users
         connection.query(queryString, [socket.id], function(error, result, fields){   //Get user's pseudo
             if (error) throw error;
 			pseudo = result[0].pseudo;
-			console.log('PSEUDO='+pseudo);
-
 
             queryString = "SELECT socket_id FROM users WHERE (room_id = ?) AND (socket_id != ?)";
             connection.query(queryString, [room_id, socket.id], function(error, result, fields){    //Selects other user's socket_id in the room
                 if (error) throw error;
-				console.log('LENGTH='+result.length);
                 for(var i=0; i<result.length; i++){
                 	socket.to(result[i].socket_id).emit('userLeft', {'pseudo': pseudo, 'room_id': room_id});
                 }

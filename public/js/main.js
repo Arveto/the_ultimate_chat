@@ -1,5 +1,5 @@
 
-var socket = io.connect('145.239.157.32');  //enable connection with the server
+var socket = io.connect('192.168.0.156');  //enable connection with the server
 var currentRoom = 0;
 
 
@@ -20,8 +20,6 @@ var currentRoom = 0;
   })
 
   socket.on('userLeft', (entrant) => {
-
-    console.log(entrant.pseudo + " has left");
     userLeft(entrant.pseudo);
     Message.chatEvent('userLeft', entrant)
   })
@@ -45,3 +43,13 @@ var currentRoom = 0;
       Message.send( $("textarea").val() );
     }
   });
+
+  $("div.header.settings#settings").on('click', () => {
+    let cookies = document.cookie.split(";");
+    for(var i=0; i < cookies.length; i++) {
+      let equals = cookies[i].indexOf("=");
+      let name = equals > -1 ? cookies[i].substr(0, equals) : cookies[i];
+      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+    location.reload();
+  })
