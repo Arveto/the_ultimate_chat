@@ -1,5 +1,5 @@
 
-var socket = io.connect('192.168.0.156');  //enable connection with the server
+var socket = io.connect('145.239.157.32');  //enable connection with the server
 var currentRoom = 0;
 
 
