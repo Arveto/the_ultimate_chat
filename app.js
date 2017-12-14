@@ -42,10 +42,11 @@ app.get('/signup', function(req, res){
 app.post('/signup', urlencodedParser, function(req, res){
         var queryString = "SELECT id FROM users WHERE pseudo = ? AND password = ?";
         connection.query(queryString, [req.body.username, req.body.password], function(error, result, fields){;
+
             try {    //If the user exists <3
             let test = result[0].id;
-            res.cookie('password', req.body.password);
-            res.cookie('username', req.body.username);
+            res.cookie('password', req.body.password, {maxAge: 3600000000});
+            res.cookie('username', req.body.username, {maxAge: 3600000000});
             res.redirect('/');
             }
             catch(e){   //The doesn't exist
@@ -72,7 +73,6 @@ app.post('/signup', urlencodedParser, function(req, res){
 
     //Events
 io.sockets.on('connection', function(socket){
-
     var queryString = "UPDATE users SET socket_id = ? WHERE password = ?";
     connection.query(queryString, [socket.id, password], function (error, result, fields) {    //Updates socket_id
         if (error) throw error;
