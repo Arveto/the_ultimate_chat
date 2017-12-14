@@ -1,10 +1,11 @@
 
-var socket = io.connect('http://192.168.0.156');  //enable connection with the server
-
+var socket = io.connect('192.168.0.156');  //enable connection with the server
+var currentRoom = 0;
 
 
  socket.on('room', (room) => {    //get rooms list
-   room = new Room(room.num, room.roomName, room.entrants);
+   $("#roomList:not(.site)").remove();
+   room = new Room(room.room_id, room.roomName, room.entrants);
    room.disp();
  });
 
@@ -13,23 +14,30 @@ var socket = io.connect('http://192.168.0.156');  //enable connection with the s
   });
 
   socket.on('newUser', (entrant) => {
-    newEntrant(entrant.pseudo)
+    console.log(entrant.pseudo + "have joined");
+    newEntrant(entrant.pseudo);
     Message.chatEvent("newEntrant", entrant);
   })
 
-  socket.on('userLeft', (entrant)) => {
+  socket.on('userLeft', (entrant) => {
+
+    console.log(entrant.pseudo + " has left");
     userLeft(entrant.pseudo);
     Message.chatEvent('userLeft', entrant)
-  }
+  })
 
   socket.on('usersList', (entrants) => {
-      $("div#entrantsList .entrant").remove();
+    $("div#entrantsList .entrant").remove();
     if (Array.isArray(entrants)){
         for(let i = 0; i < entrants.length; i++){
             newEntrant(entrants[i].pseudo)
         }
     }
   });
+
+  socket.on('test', (result) => {
+    console.log(result);
+  })
 
   $("textarea").on('keypress', (e) => {     //send messages
     if ( e.keyCode == 13 ) {  //enter key

@@ -31,6 +31,8 @@ display: flex;
 flex-direction: column;
 
 width: 100%;
+
+margin-bottom: 10px;
 }
 
 .message{
@@ -84,7 +86,11 @@ strong{
 
 
 
-p.chatEvent{
-  color: #66BB6A;
+div.chatEvent{
+  color: #282c2f;
+  font-size: 100%;
   font-style: italic;
+  margin-left: 50px;
+
+  border-radius: 50%
 }

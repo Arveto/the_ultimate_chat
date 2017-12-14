@@ -35,16 +35,16 @@
     display: flex;
     justify-content: space-between;
 
-    -webkit-transition: margin 250ms;
-    -moz-transition: margin 250ms;
-    -o-transition: margin 250ms;
-    -ms-transition: margin 250ms;
-    transition: margin 250ms;
-    -webkit-transition: background-color 250ms;
-    -moz-transition: background-color 250ms;
-    -o-transition: background-color 250ms;
-    -ms-transition: background-color 250ms;
-    transition: background-color 250ms;
+    -webkit-transition: margin 400ms;
+    -moz-transition: margin 400ms;
+    -o-transition: margin 400ms;
+    -ms-transition: margin 400ms;
+    transition: margin 400ms;
+    -webkit-transition: background-color 400ms;
+    -moz-transition: background-color 400ms;
+    -o-transition: background-color 400ms;
+    -ms-transition: background-color 400ms;
+    transition: background-color 400ms;
 
     padding: 0 10px 0 10px;
 
@@ -70,16 +70,16 @@
     display: flex;
     justify-content: space-between;
 
-    -webkit-transition: margin 250ms;
-    -moz-transition: margin 250ms;
-    -o-transition: margin 250ms;
-    -ms-transition: margin 250ms;
-    transition: margin 250ms;
-    -webkit-transition: background-color 250ms;
-    -moz-transition: background-color 250ms;
-    -o-transition: background-color 250ms;
-    -ms-transition: background-color 250ms;
-    transition: background-color 250ms;
+    -webkit-transition: margin 400ms;
+    -moz-transition: margin 400ms;
+    -o-transition: margin 400ms;
+    -ms-transition: margin 400ms;
+    transition: margin 400ms;
+    -webkit-transition: background-color 400ms;
+    -moz-transition: background-color 400ms;
+    -o-transition: background-color 400ms;
+    -ms-transition: background-color 400ms;
+    transition: background-color 400ms;
 
     padding: 0 10px 0 10px;
 
@@ -131,8 +131,19 @@ div.settings:not(.header){
     cursor: pointer;
 }
 
-button#reinitColors{
+button.theme{
+  -webkit-transition: background-color 250ms;
+  -moz-transition: background-color 250ms;
+  -o-transition: background-color 250ms;
+  -ms-transition: background-color 250ms;
+  transition: background-color 250ms;
+
   background-color: #ff8788;
+  color: #124c60;
+  border-radius: 5px;
+}
+button.theme:hover{
+  background-color: #f57374;
   color: #124c60;
   border-radius: 5px;
 }

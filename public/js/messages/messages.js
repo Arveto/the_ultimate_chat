@@ -32,18 +32,19 @@ if (typeof Message === 'undefined'){
     chatEvent : (type, content) => {  // content : object with arguments
       if (type == "newEntrant") {
         let pseudo = content.pseudo;
-        $("<p>").html("Please welcome a new challenger : " + pseudo + " !").appendTo(".current#messages").addClass("chatEvent");
+        $("<div>").html(" * Please welcome a new challenger : <b>" + pseudo + "</b> !").appendTo(".current#messages").addClass("chatEvent");
       }
 
       if (type == "userLeft") {
         let pseudo = content.pseudo;
-        $("<p>").html(pseudo + " left the room").appendTo(".current#messages").addClass("chatEvent");
+        $("<div>").html(" * " + pseudo + " left the room").appendTo(".current#messages").addClass("chatEvent");
       }
-    }
+
+      Message.scroll();
+    },
 
     scroll: function () {
-        console.log("scroll");
-	          $( "div.current#messages" ).scrollTop( $("div.current#messages").height() + $(window).height() );
+      $( "div.current#messages" ).scrollTop( $("div.current#messages").height() + $(window).height() );
     }
 
   };

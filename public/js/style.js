@@ -1,32 +1,36 @@
 
+setColors();
+
 $("button#reinitColors").on("click", () => {
-  localStorage.removeItem('colors');
+  localStorage.clear();
+  $(".settings input").trigger('change');
 });
 
 $("button#saveTheme").on('click', () => {
-  let colors = {};
-  colors.header = $("div.site.header").css("background-color");
-  colors.background = $(".chat").css("background-color");
-  colors.text = $("body").css("color");
-  colors.headertext = $(".header#header").css("color");
-  colors.background = $(".chat").css("background-color");
-  colors.myMessagesBackground = $(".message.mine").css("background-color");
-  colors.myMessagesText = $(".message.mine").css("color");
+  localStorage.colorHeader = $("div.site.header").css("background-color");
+  localStorage.colorBackground = $(".chat").css("background-color");
+  localStorage.colorText = $("body").css("color");
+  localStorage.colorsHeadertext = $(".header#header").css("color");
+  localStorage.colorsBackground = $(".chat").css("background-color");
+  localStorage.colorsMyMessagesBackground = $(".message.mine").css("background-color");
+  localStorage.colorsMyMessagesText = $(".message.mine").css("color");
 
-  localStorage.setItem('colors', colors);
+  var colors = localStorage.getItem("header : " + localStorage.getItem('colorHeader'));
+
 })
 
 function setColors () {
-  var colors = localStorage.getItem("colors");
+  var colors = localStorage.getItem("header : " + localStorage.getItem('colorHeader'));
+  console.log();
 
   if(colors) {
-    $("#header").css('background-color', colors.header);  //header & borders
-    $("*:not(input.slider)").css('border-color', colors.header);
-    $(".chat").css('background-color', colors.background);  //main background color
-    $("body").css('color', colors.text);  //text color
-    $(".header#header").css('color', colors.headertext); //header text color
-    $(".message.mine").css("background-color", colors.myMessagesBackground); //message.mine background
-    $(".message.mine").css("color", colors.myMessagesText); //message.mine text color
+    $("#header").css('background-color', localStorage.colorHeader);  //header & borders
+    $("*:not(input.slider)").css('border-color', localStorage.colorHeader);
+    $(".chat").css('background-color', localStorage.colorBackground);  //main background color
+    $("body").css('color', localStorage.colorText);  //text color
+    $(".header#header").css('color', localStorage.colorsHeadertext); //header text color
+    $(".message.mine").css("background-color", localStorage.colorsBackground); //message.mine background
+    $(".message.mine").css("color", localStorage.colorsMyMessagesText); //message.mine text color
   }
 }
 

@@ -1,25 +1,41 @@
 
 var roomColor=0;
-var Room = function (num, roomName, entrants) {  //Room constructor
-  this.num = num;
+var Room = function (room_id, roomName, entrants) {  //Room constructor
+  this.room_id = room_id;
   this.roomName = roomName;
   this.entrants = entrants;
 
   this.disp = function () {
     let div = $('<div>').addClass('room').html('<strong>'+this.roomName+'</strong><span class="entrants">'+this.entrants+' entrants</span>').appendTo('#roomsList');
-    div.attr('id', this.num);
+    div.attr('id', this.room_id);
     div.css('background-color', getColor("room") );
 
     $(".room:last").on('click', function () {     //event 'onclick' => send new room to the server
-      socket.emit('leaveRoom');
+      if (currentRoom) {
 
-      let roomId = this.id;
-      socket.emit('joinRoom', roomId);      //server emits 'usersList' event
+        console.log("CLIC ON " + this.id);
+
+        console.log("left " + currentRoom);
+        socket.emit('leaveRoom', currentRoom);
+
+        $("div#messages.current").empty();
+      }
+
+      currentRoom = this.id;
+      socket.emit('joinRoom', currentRoom);      //server emits 'usersList' event
+
+      console.log("join " + currentRoom);
     });
+
+    socket.on("userLeft", (outgoing) => {
+      if (outgoing.room_id == this.room_id) {
+        this.entrants --;
+      }
+    })
   };
 
 
-  if(i>=4){
+  if (roomColor>=4){
     roomColor=0;
   } else {
     roomColor++;
@@ -31,13 +47,11 @@ var Room = function (num, roomName, entrants) {  //Room constructor
 var entrantColor=0;
 function newEntrant(pseudo) {
 
-  $("div#messages").empty();
-
   let div = $('<div>').addClass('entrant').html('<strong>'+pseudo+'</strong>').appendTo('#entrantsList');
   div.css('background-color', getColor("entrant") );
   div.attr('id', pseudo);
 
-  if(i>=4){
+  if(entrantColor>=4){
     entrantColor=0;
   } else {
     entrantColor++;
@@ -45,7 +59,7 @@ function newEntrant(pseudo) {
 }
 
 function userLeft(pseudo) {
-  $('#entrantsList div.entrant#' + pseudo).remove();
+  $('div.entrant#' + pseudo).remove();
 }
 
 function getColor(target) {
