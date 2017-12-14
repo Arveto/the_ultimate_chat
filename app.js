@@ -105,7 +105,10 @@ io.sockets.on('connection', function(socket){
 		var queryString = 'SELECT room_id FROM users WHERE socket_id = id';
 		connection.query(queryString, function(error, result, fields){
 			if (error) throw error;
-			var room_id = result.room_id;
+			if(result.length>0){
+				var room_id = result[0].room_id;
+			}
+
 			var queryString = "UPDATE rooms SET n_users = n_users-1 WHERE id = ?";	//Decrementing n_users
 			connection.query(queryString, [room_id], function(error, result, fields){
 				if (error) throw error;
