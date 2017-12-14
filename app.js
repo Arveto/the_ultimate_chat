@@ -30,13 +30,13 @@ app.get('/', function(req, res){
     }
     else{
         password = req.cookies.password;
-        res.sendFile('index.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat\\'});
+        res.sendFile('index.html', {root: '/debian/app.js'});
     }
 
 });
 
 app.get('/signup', function(req, res){
-    res.sendFile('signup.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat\\'});
+    res.sendFile('signup.html', {root: '/debian/app.js'});
 });
 
 app.post('/signup', urlencodedParser, function(req, res){
@@ -76,7 +76,6 @@ io.sockets.on('connection', function(socket){
     var queryString = "UPDATE users SET socket_id = ? WHERE password = ?";
     connection.query(queryString, [socket.id, password], function (error, result, fields) {    //Updates socket_id
         if (error) throw error;
-		console.log("Socket ID updated");
     });
 
         //The user needs to see the rooms list
