@@ -32,13 +32,13 @@ app.get('/', function(req, res){
     else{
         password = req.cookies.password;
 		pseudo = req.cookies.username;
-        res.sendFile('index.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat'});
+        res.sendFile('index.html', {root: '/home/debian'});
     }
 
 });
 
 app.get('/signup', function(req, res){
-    res.sendFile('signup.html', {root: 'C:\\Programmation\\Web\\Ultimate Chat'});
+    res.sendFile('signup.html', {root: '/home/debian'});
 });
 
 app.post('/signup', urlencodedParser, function(req, res){
@@ -78,10 +78,12 @@ app.post('/signup', urlencodedParser, function(req, res){
     //Events
 io.sockets.on('connection', function(socket){
     var queryString = "UPDATE users SET socket_id = ? WHERE pseudo = ?";
-    connection.query(queryString, [socket.id, pseudo], function (error, result, fields) {    //Updates socket_id
+	console.log('1) socket_id= '+socket.id);
+	connection.query(queryString, [socket.id, pseudo], function (error, result, fields) {    //Updates socket_id
         if (error) throw error;
-		console.log(socket.id+' '+pseudo);
     });
+	console.log('2) socket_id= '+socket.id);
+
 	var queryString = "UPDATE users SET room_id = 0 WHERE pseudo = ?";
     connection.query(queryString, [pseudo], function (error, result, fields) {    //Updates socket_id
         if (error) throw error;
